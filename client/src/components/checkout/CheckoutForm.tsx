@@ -22,6 +22,7 @@ export function CheckoutForm() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [idempotencyKey] = useState(() => window.crypto.randomUUID());
 
   const subtotal = subtotalOf(lines);
 
@@ -48,13 +49,16 @@ export function CheckoutForm() {
     try {
       const customer = CustomerSchema.parse(form);
       setSubmitting(true);
-      const order = await api.createOrder({
-        items: lines.map((l) => ({
-          menuItemId: l.menuItemId,
-          quantity: l.quantity,
-        })),
-        customer,
-      });
+      const order = await api.createOrder(
+        {
+          items: lines.map((l) => ({
+            menuItemId: l.menuItemId,
+            quantity: l.quantity,
+          })),
+          customer,
+        },
+        idempotencyKey,
+      );
       clear();
       navigate(`/orders/${order.id}`);
     } catch (err) {

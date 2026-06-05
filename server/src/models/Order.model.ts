@@ -27,6 +27,7 @@ const OrderSchemaMongo = new Schema(
     customer: { type: CustomerSchema, required: true },
     status: { type: String, enum: ORDER_STATUSES, default: "RECEIVED", required: true },
     total: { type: Number, required: true, min: 0 },
+    idempotencyKey: { type: String, required: false, index: true },
   },
   { timestamps: true, versionKey: false },
 );

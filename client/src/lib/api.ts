@@ -39,13 +39,20 @@ export const api = {
     return data.items;
   },
 
-  async createOrder(input: {
-    items: Array<{ menuItemId: string; quantity: number }>;
-    customer: CustomerInput;
-  }): Promise<Order> {
+  async createOrder(
+    input: {
+      items: Array<{ menuItemId: string; quantity: number }>;
+      customer: CustomerInput;
+    },
+    idempotencyKey?: string,
+  ): Promise<Order> {
+    const headers: Record<string, string> = { "content-type": "application/json" };
+    if (idempotencyKey) {
+      headers["x-idempotency-key"] = idempotencyKey;
+    }
     const res = await fetch(`${API_BASE}/api/orders`, {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers,
       body: JSON.stringify(input),
     });
     const data = await handle<{ order: Order }>(res);

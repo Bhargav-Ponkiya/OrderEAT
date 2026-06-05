@@ -30,7 +30,9 @@ ordersRouter.post(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const input = CreateOrderInputSchema.parse(req.body);
-      const result = await createOrder(input);
+      const idempotencyKey = req.headers["x-idempotency-key"];
+      const keyStr = typeof idempotencyKey === "string" ? idempotencyKey : undefined;
+      const result = await createOrder(input, keyStr);
       if (!result.ok) {
         sendError(
           res,

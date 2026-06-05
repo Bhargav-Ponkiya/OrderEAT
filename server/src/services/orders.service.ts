@@ -15,7 +15,15 @@ export type CreateOrderResult =
 
 export async function createOrder(
   input: CreateOrderInput,
+  idempotencyKey?: string,
 ): Promise<CreateOrderResult> {
+  if (idempotencyKey) {
+    const existing = await OrderModel.findOne({ idempotencyKey });
+    if (existing) {
+      return { ok: true, order: existing.toJSON() as unknown as Order };
+    }
+  }
+
   const ids = input.items.map((l) => l.menuItemId);
   const menuItems = await MenuItemModel.find({ _id: { $in: ids } }).lean();
   const byId = new Map(menuItems.map((m) => [m._id, m]));
@@ -48,6 +56,7 @@ export async function createOrder(
     customer: input.customer,
     status: "RECEIVED",
     total,
+    idempotencyKey,
   });
 
   const order = doc.toJSON() as unknown as Order;
