@@ -1,0 +1,20 @@
+# Optional Render Blueprint — lets you provision the API with one click.
+# If you prefer the dashboard wizard (recommended for first-time), ignore this file
+# and follow docs/DEPLOY_CHECKLIST.md step 4.
+
+services:
+  - type: web
+    name: raft-eats-api
+    runtime: node
+    plan: free
+    rootDir: server
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    healthCheckPath: /api/health
+    envVars:
+      - key: MONGODB_URI
+        sync: false # set in dashboard, never in YAML
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: NODE_VERSION
+        value: "22"

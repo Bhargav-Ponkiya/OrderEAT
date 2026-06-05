@@ -1,0 +1,61 @@
+# ─── Dependencies ────────────────────────────────────────────────
+node_modules/
+.pnpm-store/
+
+# ─── Build output ────────────────────────────────────────────────
+dist/
+build/
+client/dist/
+server/dist/
+*.tsbuildinfo
+
+# ─── Test / coverage / cache ─────────────────────────────────────
+coverage/
+.cache/
+.vitest-cache/
+.vite/
+.mongodb-binaries/
+
+# ─── Logs ────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ─── Env files (NEVER commit — contain secrets) ──────────────────
+.env
+.env.*
+!.env.example
+
+# ─── Editor / OS ─────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ─── Hosting platform local artifacts ────────────────────────────
+.vercel/
+.netlify/
+.render/
+
+# ─── Secrets / keys ──────────────────────────────────────────────
+*.pem
+*.key
+*.cert
+
+# ─── Assessment artifacts (do NOT commit) ────────────────────────
+Sr Full Stack Developer - Assessment.pdf
+*.assessment.pdf
+
+# ─── Private notes (personal prep, not for public) ────────────
+docs/FLOW.md
+*.local.md
+*.private.md
+NOTES.md
+TODO.md
+SCRATCH.md

@@ -1,0 +1,32 @@
+{
+  "name": "raft-eats",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "npm-run-all --parallel dev:*",
+    "dev:server": "npm --workspace server run dev",
+    "dev:client": "npm --workspace client run dev",
+    "build": "npm-run-all build:*",
+    "build:server": "npm --workspace server run build",
+    "build:client": "npm --workspace client run build",
+    "lint": "npm-run-all --parallel lint:*",
+    "lint:server": "npm --workspace server run lint",
+    "lint:client": "npm --workspace client run lint",
+    "typecheck": "npm-run-all --parallel typecheck:*",
+    "typecheck:server": "npm --workspace server run typecheck",
+    "typecheck:client": "npm --workspace client run typecheck",
+    "test": "npm-run-all --parallel test:*",
+    "test:server": "npm --workspace server run test",
+    "test:client": "npm --workspace client run test"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}
