@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-50: #fff5f0;
+  --color-brand-100: #ffe4d6;
+  --color-brand-500: #ff6b35;
+  --color-brand-600: #e85a2a;
+  --color-brand-700: #c4471f;
+  --color-brand-900: #5c1d0a;
+}
+
+@utility container-page {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 72rem;
+  padding-inline: 1rem;
+
+  @media (min-width: 640px) {
+    padding-inline: 1.5rem;
+  }
+  @media (min-width: 1024px) {
+    padding-inline: 2rem;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-neutral-50);
+    color: var(--color-neutral-900);
+    -webkit-font-smoothing: antialiased;
+  }
+}
