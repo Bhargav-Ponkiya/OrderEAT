@@ -1,5 +1,5 @@
 {
-  "name": "@raft/client",
+  "name": "@ordereat/client",
   "version": "0.1.0",
   "private": true,
   "type": "module",

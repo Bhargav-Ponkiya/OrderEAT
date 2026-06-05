@@ -65,7 +65,7 @@ export const useCartStore = create<CartState>()(
       },
     }),
     {
-      name: "raft-cart",
+      name: "ordereat-cart",
       storage: createJSONStorage(() => localStorage),
     },
   ),

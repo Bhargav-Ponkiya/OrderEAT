@@ -49,7 +49,7 @@ Build an Order Management feature for a food delivery app: customers browse a me
 - **FR-STATUS-2** On creation, server schedules timed transitions (simulated): `RECEIVED → PREPARING` after 10s, `PREPARING → OUT_FOR_DELIVERY` after 20s, `OUT_FOR_DELIVERY → DELIVERED` after 30s. Durations live in one constant and are overridable via `STATUS_DELAYS_OVERRIDE` env var for demos.
 - **FR-STATUS-3** `GET /api/orders/:id` returns the order with current status.
 - **FR-STATUS-4** `GET /api/orders/:id/stream` is a Server-Sent Events endpoint that pushes the order on every status change and on initial connect.
-- **FR-STATUS-5** `PATCH /api/orders/:id/status` updates status manually (covers the assessment's CRUD update requirement).
+- **FR-STATUS-5** `PATCH /api/orders/:id/status` updates status manually.
 - **FR-STATUS-6** Status page renders a stepper showing the current stage; SSE updates it without a refresh.
 
 ### 3.5 List (CRUD: read)

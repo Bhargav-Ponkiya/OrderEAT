@@ -50,7 +50,7 @@ The client never imports anything from the server (and vice versa). They only me
 ## 3. Folder layout
 
 ```
-raft_assess/
+ordereat/
 ├── server/
 │   ├── src/
 │   │   ├── app.ts              # Express app factory (createApp)
@@ -168,4 +168,4 @@ Server reads `ALLOWED_ORIGINS` (comma-separated) from env. In prod it's the Verc
 - **No global state for orders on the client.** Page-local `useState` is enough for 3 routes.
 - **No shared workspace for Zod schemas.** Mirrored deliberately; see §4.2.
 
-These are deliberate. Each would be at least half a day of work that doesn't move the assessment forward.
+These are deliberate. Each would be at least half a day of work that doesn't move the core product forward.

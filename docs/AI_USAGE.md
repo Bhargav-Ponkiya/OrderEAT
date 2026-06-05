@@ -1,8 +1,8 @@
 # AI Usage Log
 
-This document is a transparent record of **how AI tooling was used to build this project** and **how it was constrained**. Evaluation criterion #5 ("Use of AI") asks how effectively AI was leveraged — this log answers that.
+This document is a transparent record of **how AI tooling was used to build this project** and **how it was constrained** as a spec-driven development process.
 
-The project was built using **Claude Code (Opus 4.7)** as a spec-driven pair-programmer. The workflow below is deliberately structured: AI was steered by markdown specs, not asked to "build me an app."
+The project was built using **an AI assistant** as a spec-driven pair-programmer. The workflow below is deliberately structured: AI was steered by markdown specs, not asked to "build me an app."
 
 ---
 
@@ -31,15 +31,15 @@ The contract: **AI never invents requirements or tech choices**. It only impleme
 
 | Tool             | Role                                                                                                                                                                  |
 | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Claude Code (Opus 4.7)** | Drove the entire build: scaffolding, models, services, routes, SSE, client UI, tests, deployment configuration. Operated under the rules in `CLAUDE.md`. |
+| **AI Assistant** | Drove the entire build: scaffolding, models, services, routes, SSE, client UI, tests, deployment configuration. Operated under the rules in `CLAUDE.md`. |
 
 I deliberately scoped AI usage to a single high-context tool rather than fragmenting across Copilot, Cursor, and ChatGPT. With one tool reading the whole spec and codebase, every change stays consistent. Multi-tool setups tend to drift.
 
 ## 3. Where AI was used — by activity
 
 ### 3.1 Requirements analysis & decomposition
-- **Input**: the assessment PDF.
-- **AI's role**: extract functional vs non-functional requirements, surface gaps (e.g., "the PDF doesn't define status durations — pick reasonable defaults and document them"), propose the user-story table in `SPEC.md`.
+- **Input**: functional requirements.
+- **AI's role**: extract functional vs non-functional requirements, surface gaps (e.g., "pick reasonable defaults for status durations and document them"), propose the user-story table in `SPEC.md`.
 - **My role**: approve/reject every choice; reject anything beyond the spec.
 
 ### 3.2 Architecture decisions
@@ -117,4 +117,4 @@ Anyone reading this repo can reconstruct the build:
 3. Read `CLAUDE.md` → know the conventions AI was told to follow.
 4. Read this file → know the human/AI division of labour.
 
-The deliverable for "Use of AI" isn't "I used Claude" — it's "here is a workflow you could repeat."
+The goal here isn't just saying "I used AI" — it's "here is a workflow you could repeat."

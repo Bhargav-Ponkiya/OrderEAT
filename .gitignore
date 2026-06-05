@@ -48,9 +48,8 @@ desktop.ini
 *.key
 *.cert
 
-# ─── Assessment artifacts (do NOT commit) ────────────────────────
-Sr Full Stack Developer - Assessment.pdf
-*.assessment.pdf
+# ─── PDFs (do NOT commit) ────────────────────────
+*.pdf
 
 # ─── Private notes (personal prep, not for public) ────────────
 docs/FLOW.md

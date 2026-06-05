@@ -1,6 +1,6 @@
 # Testing Strategy
 
-The assessment explicitly calls out **Test-Driven Development**. This document is how we live up to that.
+This document outlines our commitment to **Test-Driven Development** (TDD) and how we verify code correctness.
 
 ---
 
@@ -63,7 +63,7 @@ The assessment explicitly calls out **Test-Driven Development**. This document i
 
 ## 4. What we deliberately do *not* test
 
-- **End-to-end browser tests (Playwright).** Out of scope for an assessment of this size; manual smoke covers the customer flow.
+- **End-to-end browser tests (Playwright).** Out of scope for the current phase; manual smoke covers the customer flow.
 - **The SSE wire format in a unit test.** It's exercised manually with `curl -N`; mocking `EventSource` reliably in jsdom is more brittle than the value it provides.
 - **Mongoose internals.** Schemas, casting, etc.
 - **Network errors in the UI.** Surfaced via the error states on `MenuPage` and `OrderPage`; testing the strings is brittle.

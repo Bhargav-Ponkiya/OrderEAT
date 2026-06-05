@@ -1,6 +1,6 @@
-# Setup, Deploy & Submit Guide
+# Setup & Deploy Guide
 
-**Start here when you open this project on a new machine.** This single guide covers everything: local setup → run locally → push to GitHub → CI → deploy backend → deploy frontend → wire CORS → record Loom → submit. Tick each box as you go.
+**Start here when you open this project on a new machine.** This single guide covers everything: local setup → run locally → push to GitHub → CI → deploy backend → deploy frontend → wire CORS. Tick each box as you go.
 
 ---
 
@@ -43,7 +43,6 @@ git commit -m "feat: order management — Express + MongoDB + React+Vite (FR-MEN
 - [ ] Repo initialized
 - [ ] First commit created
 - [ ] `git status` clean
-- [ ] Assessment PDF excluded (`.gitignore`'d)
 - [ ] No `.env` files committed (`git ls-files | grep -i env` should only show `.env.example`)
 
 ---
@@ -52,12 +51,12 @@ git commit -m "feat: order management — Express + MongoDB + React+Vite (FR-MEN
 
 **Option A — `gh` CLI:**
 ```bash
-gh repo create raft-eats --public --source=. --push
+gh repo create OrderEAT --public --source=. --push
 ```
 
 **Option B — github.com first, then:**
 ```bash
-git remote add origin git@github.com:<user>/raft-eats.git
+git remote add origin git@github.com:<user>/OrderEAT.git
 git branch -M main
 git push -u origin main
 ```
@@ -83,7 +82,7 @@ Fix locally, push, repeat if it fails.
 1. Go to https://render.com → New → **Web Service**
 2. Connect the GitHub repo
 3. Configure:
-   - **Name**: `raft-eats-api`
+   - **Name**: `ordereat-api`
    - **Root Directory**: `server`
    - **Runtime**: Node
    - **Build Command**: `npm install && npm run build`
@@ -101,7 +100,7 @@ Fix locally, push, repeat if it fails.
 - [ ] `/api/health` returns 200
 - [ ] Render URL: `___________________________________________`
 
-> ⚠️ Render free tier sleeps after 15 min of inactivity. First request after sleep takes ~30s. Hit `/api/health` before recording the Loom to warm it up.
+> ⚠️ Render free tier sleeps after 15 min of inactivity. First request after sleep takes ~30s.
 
 ---
 
@@ -129,7 +128,7 @@ Fix locally, push, repeat if it fails.
 ## 6. Wire CORS back to Render
 
 1. Go back to Render → your service → **Environment**
-2. Set `ALLOWED_ORIGINS` = your Vercel URL (e.g. `https://raft-eats.vercel.app`)
+2. Set `ALLOWED_ORIGINS` = your Vercel URL (e.g. `https://ordereat.vercel.app`)
 3. **Manual Deploy** → **Restart Service**
 4. Reload the Vercel app — menu still loads, ordering still works
 
@@ -146,7 +145,6 @@ Open `README.md` and replace:
 - [ ] CI badge: replace `USER/REPO` with your actual `<github-username>/<repo>` (appears in the badge line)
 - [ ] **Live demo:** your Vercel URL
 - [ ] **API:** your Render URL
-- [ ] **Loom walkthrough:** the Loom URL (do this *after* you record — see step 9)
 
 ---
 
@@ -164,29 +162,11 @@ git push
 
 ---
 
-## 9. Record the Loom
-
-Record a 12–15 minute walkthrough covering: code structure, architecture and design choices, how AI was used during development, and challenges you faced (per the assessment brief).
-
-Before recording:
-- [ ] Hit `/api/health` on Render to wake it up
-- [ ] Vercel deploy live
-- [ ] Editor font bumped, only relevant tabs open
-- [ ] One rough dry-run done (don't post the first take)
-
-After recording:
-- [ ] Add the Loom URL to `README.md`
-- [ ] Commit + push (`docs: add Loom walkthrough link`)
-
----
-
-## 10. Submit
+## 9. Final Checklist
 
 - [ ] GitHub URL ready
 - [ ] Vercel URL ready
-- [ ] Loom URL ready
-- [ ] Submitted via RaftLabs' channel
-- [ ] Confirmation received
+- [ ] Production app tested and functional
 
 ---
 

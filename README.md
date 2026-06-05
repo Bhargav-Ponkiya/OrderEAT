@@ -1,14 +1,11 @@
-# Raft Eats — Order Management
+# OrderEAT — Food Ordering & Real-Time Status Tracking
 
-[![CI](https://github.com/USER/REPO/actions/workflows/ci.yml/badge.svg)](https://github.com/USER/REPO/actions/workflows/ci.yml)
-<!-- TODO: replace USER/REPO with your GitHub path after creating the repo -->
+[![CI](https://github.com/Bhargav-Ponkiya/OrderEAT/actions/workflows/ci.yml/badge.svg)](https://github.com/Bhargav-Ponkiya/OrderEAT/actions/workflows/ci.yml)
 
-> Submission for the **RaftLabs Sr Full Stack Developer Assessment**.
-> Order management for a food delivery app: browse menu → cart → checkout → real-time status tracking.
+> A modern food ordering and real-time status tracking application. Browse menu → add to cart → checkout → track order lifecycle.
 
 - **Live demo:** <!-- TODO: Vercel URL -->
 - **API:** <!-- TODO: Render URL/api/health -->
-- **Loom walkthrough:** <!-- TODO: Loom URL -->
 
 ---
 
@@ -142,7 +139,7 @@ The SSE client on `/orders/:id` updates the stepper UI as each event arrives. No
 
 See [`docs/SETUP.md`](./docs/SETUP.md) for the full step-by-step (Render for the API, Vercel for the SPA, MongoDB Atlas for data). Both free tiers.
 
-## Assessment checklist
+## Feature checklist
 
 | Requirement                                | Status |
 | ------------------------------------------ | ------ |
@@ -157,7 +154,6 @@ See [`docs/SETUP.md`](./docs/SETUP.md) for the full step-by-step (Render for the
 | React + Vite                               | ✅     |
 | Real-time updates                          | ✅     |
 | Hosted (Vercel + Render)                   | ✅ (see top) |
-| Loom video                                 | ✅ (see top) |
 
 ## License
 
