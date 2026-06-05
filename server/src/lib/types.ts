@@ -41,6 +41,7 @@ export type Order = {
   customer: Customer;
   status: OrderStatus;
   total: number;
+  idempotencyKey?: string;
   createdAt: string;
   updatedAt: string;
 };

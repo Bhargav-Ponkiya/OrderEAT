@@ -53,6 +53,34 @@ describe("POST /api/orders", () => {
     expect(res.status).toBe(400);
     expect(res.body.error.fields["items.0.menuItemId"]).toMatch(/Unknown/);
   });
+
+  it("returns the same order on duplicate POST with x-idempotency-key", async () => {
+    const key = "test-idempotency-key-123";
+    const res1 = await request(app)
+      .post("/api/orders")
+      .set("x-idempotency-key", key)
+      .send({
+        items: [{ menuItemId: "burger-classic", quantity: 1 }],
+        customer: validCustomer,
+      });
+    expect(res1.status).toBe(201);
+    const order1Id = res1.body.order.id;
+
+    const res2 = await request(app)
+      .post("/api/orders")
+      .set("x-idempotency-key", key)
+      .send({
+        items: [{ menuItemId: "burger-classic", quantity: 1 }],
+        customer: validCustomer,
+      });
+    expect(res2.status).toBe(201);
+    expect(res2.body.order.id).toBe(order1Id);
+
+    // Verify only one order was created in DB
+    const listRes = await request(app).get("/api/orders");
+    const matching = listRes.body.orders.filter((o: { id: string }) => o.id === order1Id);
+    expect(matching.length).toBe(1);
+  });
 });
 
 describe("GET /api/orders/:id (FR-STATUS-3)", () => {

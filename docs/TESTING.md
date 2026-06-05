@@ -28,6 +28,7 @@ This document outlines our commitment to **Test-Driven Development** (TDD) and h
 
 ### 3.2 Services (`server/src/services/orders.service.spec.ts`)
 - FR-ORDER-3: `createOrder` returns a persisted order with `status = "RECEIVED"` and a server-computed total.
+- Idempotency key lookup returns the existing order (FR-ORDER-3).
 - Server-side re-pricing ignores any forged `total` field on the input.
 - FR-ORDER-2: unknown menu IDs return `UNKNOWN_ITEM` with field-level errors.
 - `getOrder` / `listOrders` round-trip through Mongo.
@@ -38,6 +39,7 @@ This document outlines our commitment to **Test-Driven Development** (TDD) and h
 - `GET /api/menu` — 200 + items (FR-MENU-1).
 - `POST /api/orders`:
   - 201 + order body on valid payload (FR-ORDER-1, FR-ORDER-3).
+  - 201 + same order ID on duplicate request with same `x-idempotency-key` (FR-ORDER-3).
   - 400 + `customer.phone` field error on invalid phone (FR-ORDER-2, FR-ORDER-4).
   - 400 on empty items.
   - 400 on unknown menu item, with `items.0.menuItemId` field error.

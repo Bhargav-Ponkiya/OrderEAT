@@ -151,6 +151,11 @@ The client renders field-level errors directly from `fields`. Consistent, machin
 
 Server reads `ALLOWED_ORIGINS` (comma-separated) from env. In prod it's the Vercel URL; locally it's `http://localhost:5173`. No `*` in production.
 
+### 4.10 Idempotency keys for order placement
+
+To prevent duplicate orders caused by user action (double-clicks) or infrastructure retries (network drops, proxy timeout retries), the checkout form generates a unique random UUID on mount (`idempotencyKey`) and sends it via the `x-idempotency-key` header on the POST request. 
+The server stores and indexes this key on the order document in MongoDB. Before creating any new order, the server checks if the key has already been processed. If so, it returns the existing order directly, providing zero-downtime retry safety.
+
 ## 5. Security
 
 - Every body and param validated by Zod at the route boundary.

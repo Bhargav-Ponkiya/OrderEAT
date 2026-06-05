@@ -40,7 +40,7 @@ Build an Order Management feature for a food delivery app: customers browse a me
 
 - **FR-ORDER-1** `POST /api/orders` accepts `{ items, customer }` where `customer = { name, address, phone }`.
 - **FR-ORDER-2** Server validates with Zod: items non-empty, valid menu IDs, quantity 1–99, phone matches a permissive E.164-ish pattern, name 2–80 chars, address 5–200 chars.
-- **FR-ORDER-3** Server returns the persisted order with generated `id`, server-computed `total`, and initial `status = "RECEIVED"`.
+- **FR-ORDER-3** Server returns the persisted order with generated `id`, server-computed `total`, and initial `status = "RECEIVED"`. Handles duplicate order submission idempotently using the client-sent `x-idempotency-key` header.
 - **FR-ORDER-4** Invalid payloads return HTTP 400 with a structured body `{ error: { code, message, fields? } }`.
 
 ### 3.4 Order Status (CRUD: read + update)

@@ -97,4 +97,29 @@ describe("orders.service", () => {
     const removed = await deleteOrder("garbage");
     expect(removed).toBe(false);
   });
+
+  it("idempotency key returns existing order", async () => {
+    const key = "service-idempotency-key-abc";
+    const r1 = await createOrder(
+      {
+        items: [{ menuItemId: "burger-classic", quantity: 1 }],
+        customer,
+      },
+      key,
+    );
+    expect(r1.ok).toBe(true);
+    if (!r1.ok) return;
+
+    const r2 = await createOrder(
+      {
+        items: [{ menuItemId: "burger-classic", quantity: 1 }],
+        customer,
+      },
+      key,
+    );
+    expect(r2.ok).toBe(true);
+    if (!r2.ok) return;
+
+    expect(r2.order.id).toBe(r1.order.id);
+  });
 });
