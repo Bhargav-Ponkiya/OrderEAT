@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { RefreshCw } from "lucide-react";
+import { RefreshCw, Loader2 } from "lucide-react";
 import { api } from "@/lib/api";
 import type { MenuItem } from "@/lib/types";
 import { MenuGrid } from "@/components/menu/MenuGrid";
@@ -44,7 +44,10 @@ export function MenuPage() {
       </header>
 
       {state.status === "loading" && (
-        <p className="text-sm text-neutral-500">Loading menu…</p>
+        <div className="flex flex-col items-center justify-center py-20" data-testid="loading-state">
+          <Loader2 className="h-10 w-10 animate-spin text-brand-500" />
+          <p className="mt-4 text-sm text-neutral-500 font-medium">Loading menu…</p>
+        </div>
       )}
 
       {state.status === "error" && (

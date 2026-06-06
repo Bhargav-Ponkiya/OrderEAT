@@ -1,5 +1,5 @@
-import { useMemo } from "react";
-import { Plus } from "lucide-react";
+import { useMemo, useState } from "react";
+import { Check, Plus } from "lucide-react";
 import { MENU_CATEGORIES, type MenuCategory, type MenuItem } from "@/lib/types";
 import { useCartStore } from "@/lib/cart-store";
 import { formatMoney } from "@/lib/format";
@@ -11,6 +11,66 @@ const CATEGORY_LABEL: Record<MenuCategory, string> = {
   drink: "Drinks",
   dessert: "Desserts",
 };
+
+function MenuItemCard({ item, onAdd }: { item: MenuItem; onAdd: () => void }) {
+  const [added, setAdded] = useState(false);
+
+  const handleAdd = () => {
+    onAdd();
+    setAdded(true);
+    const timer = setTimeout(() => {
+      setAdded(false);
+    }, 800);
+    return () => clearTimeout(timer);
+  };
+
+  return (
+    <article
+      data-testid={`menu-item-${item.id}`}
+      className="group overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm transition-shadow hover:shadow-md"
+    >
+      <div className="relative aspect-[4/3] w-full overflow-hidden bg-neutral-100">
+        <img
+          src={item.imageUrl}
+          alt={item.name}
+          loading="lazy"
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+      </div>
+      <div className="flex flex-col gap-3 p-4">
+        <div>
+          <h3 className="text-lg font-semibold text-neutral-900">
+            {item.name}
+          </h3>
+          <p className="mt-1 line-clamp-2 text-sm text-neutral-600">
+            {item.description}
+          </p>
+        </div>
+        <div className="mt-auto flex items-center justify-between">
+          <span className="text-lg font-semibold text-neutral-900">
+            {formatMoney(item.price)}
+          </span>
+          <Button
+            size="sm"
+            onClick={handleAdd}
+            variant={added ? "secondary" : "primary"}
+            aria-label={added ? `${item.name} added` : `Add ${item.name} to cart`}
+          >
+            {added ? (
+              <>
+                <Check className="mr-1 h-4 w-4 text-green-600" aria-hidden /> Added
+              </>
+            ) : (
+              <>
+                <Plus className="mr-1 h-4 w-4" aria-hidden /> Add
+              </>
+            )}
+          </Button>
+        </div>
+      </div>
+    </article>
+  );
+}
 
 export function MenuGrid({ items }: { items: MenuItem[] }) {
   const add = useCartStore((s) => s.add);
@@ -37,49 +97,18 @@ export function MenuGrid({ items }: { items: MenuItem[] }) {
             </h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {group.map((item) => (
-                <article
+                <MenuItemCard
                   key={item.id}
-                  data-testid={`menu-item-${item.id}`}
-                  className="group overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm transition-shadow hover:shadow-md"
-                >
-                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-neutral-100">
-                    <img
-                      src={item.imageUrl}
-                      alt={item.name}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-3 p-4">
-                    <div>
-                      <h3 className="text-lg font-semibold text-neutral-900">
-                        {item.name}
-                      </h3>
-                      <p className="mt-1 line-clamp-2 text-sm text-neutral-600">
-                        {item.description}
-                      </p>
-                    </div>
-                    <div className="mt-auto flex items-center justify-between">
-                      <span className="text-lg font-semibold text-neutral-900">
-                        {formatMoney(item.price)}
-                      </span>
-                      <Button
-                        size="sm"
-                        onClick={() =>
-                          add({
-                            menuItemId: item.id,
-                            name: item.name,
-                            unitPrice: item.price,
-                            imageUrl: item.imageUrl,
-                          })
-                        }
-                        aria-label={`Add ${item.name} to cart`}
-                      >
-                        <Plus className="mr-1 h-4 w-4" aria-hidden /> Add
-                      </Button>
-                    </div>
-                  </div>
-                </article>
+                  item={item}
+                  onAdd={() =>
+                    add({
+                      menuItemId: item.id,
+                      name: item.name,
+                      unitPrice: item.price,
+                      imageUrl: item.imageUrl,
+                    })
+                  }
+                />
               ))}
             </div>
           </section>

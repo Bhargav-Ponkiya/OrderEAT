@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { Loader2 } from "lucide-react";
 import { api, ApiException } from "@/lib/api";
 import type { Order } from "@/lib/types";
 import { OrderStatusView } from "@/components/orders/OrderStatusView";
@@ -43,7 +44,12 @@ export function OrderPage() {
   }, [id]);
 
   if (state.status === "loading") {
-    return <p className="text-sm text-neutral-500">Loading order…</p>;
+    return (
+      <div className="flex flex-col items-center justify-center py-20" data-testid="loading-state">
+        <Loader2 className="h-10 w-10 animate-spin text-brand-500" />
+        <p className="mt-4 text-sm text-neutral-500 font-medium">Loading order…</p>
+      </div>
+    );
   }
   if (state.status === "not-found") {
     return (
