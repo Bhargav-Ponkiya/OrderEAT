@@ -18,8 +18,8 @@ export function StatusStepper({ current }: { current: OrderStatus }) {
       className="grid grid-cols-1 gap-3 sm:grid-cols-4"
     >
       {ORDER_STATUSES.map((s, idx) => {
-        const isDone = idx < currentIdx;
-        const isCurrent = idx === currentIdx;
+        const isDone = idx < currentIdx || current === "DELIVERED";
+        const isCurrent = idx === currentIdx && current !== "DELIVERED";
         return (
           <li
             key={s}

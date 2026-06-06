@@ -15,14 +15,22 @@ export function OrderStatusView({ initialOrder }: { initialOrder: Order }) {
     es.addEventListener("open", () => setConnected(true));
     es.addEventListener("snapshot", (e) => {
       try {
-        setOrder(JSON.parse((e as MessageEvent).data) as Order);
+        const parsed = JSON.parse((e as MessageEvent).data) as Order;
+        setOrder(parsed);
+        if (parsed.status === "DELIVERED") {
+          es.close();
+        }
       } catch {
         /* ignore */
       }
     });
     es.addEventListener("update", (e) => {
       try {
-        setOrder(JSON.parse((e as MessageEvent).data) as Order);
+        const parsed = JSON.parse((e as MessageEvent).data) as Order;
+        setOrder(parsed);
+        if (parsed.status === "DELIVERED") {
+          es.close();
+        }
       } catch {
         /* ignore */
       }

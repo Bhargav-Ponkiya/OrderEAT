@@ -25,6 +25,11 @@ export async function streamOrder(req: Request, res: Response): Promise<void> {
 
   write("snapshot", initial);
 
+  if (initial.status === "DELIVERED") {
+    res.end();
+    return;
+  }
+
   const unsubscribe = orderEventBus.onUpdate((order) => {
     if (order.id !== id) return;
     write("update", order);
