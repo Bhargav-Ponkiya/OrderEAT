@@ -66,7 +66,7 @@ Build an Order Management feature for a food delivery app: customers browse a me
 - **NFR-1** All API routes return JSON. All errors share the `{ error: {...} }` shape.
 - **NFR-2** All request bodies and route params are validated with Zod at the route boundary.
 - **NFR-3** Same Zod shape used on the client to validate forms before submit.
-- **NFR-4** No business logic in route handlers; routes delegate to service functions.
+- **NFR-4** No business logic in route handlers or controllers; routes delegate to controllers (which handle HTTP req/res serialization and validation), and controllers delegate core business logic to service functions.
 - **NFR-5** Data persisted in MongoDB Atlas via Mongoose models.
 - **NFR-6** SSE endpoint cleans up listeners on disconnect (no leaks).
 - **NFR-7** CORS configured for the deployed client origin only.
@@ -84,7 +84,7 @@ Build an Order Management feature for a food delivery app: customers browse a me
 1. **T-DOCS** — Write SPEC, ARCHITECTURE, AI_USAGE, TESTING, SETUP, CLAUDE.md.
 2. **T-SCAFFOLD** — npm workspaces root, server (Express+TS+Vitest), client (Vite+React+TS+Vitest+Tailwind).
 3. **T-DOMAIN** — Zod schemas + types (shared shape both sides), Mongoose models, services with menu seed.
-4. **T-API** — Routes for menu, orders (create/list/get/update-status), SSE stream. Tests alongside.
+4. **T-API** — Routes and controllers for menu, orders (create/list/get/update-status), SSE stream. Tests alongside.
 5. **T-UI** — Menu page, cart store (Zustand), cart drawer, checkout form, order status page with SSE consumer.
 6. **T-TESTS** — Vitest+Supertest for API (mongodb-memory-server). Vitest+RTL for cart store + StatusStepper.
 7. **T-DEPLOY** — README, `.env.example` for both sides, Render config for server, Vercel for client.

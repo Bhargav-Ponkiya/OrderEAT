@@ -8,9 +8,14 @@ This document captures the **why** behind each technical choice.
 
 ```
 ┌──────────────────────┐      HTTP + SSE       ┌───────────────────────────┐
-│  React + Vite SPA    │ ───────────────────►  │  Express REST + SSE       │
-│  (Vercel)            │ ◄── EventSource ───── │  (Render)                 │
+│  React + Vite SPA    │ ───────────────────►  │  Express Routers          │
+│  (Vercel)            │ ◄── EventSource ───── │  (routes/*.ts)            │
 └──────────────────────┘                       │           │               │
+                                               │           ▼               │
+                                               │  ┌──────────────────┐    │
+                                               │  │  Controllers      │    │
+                                               │  │  (serialize HTTP) │    │
+                                               │  └────────┬─────────┘    │
                                                │           ▼               │
                                                │  ┌──────────────────┐    │
                                                │  │   Services       │    │
@@ -61,6 +66,9 @@ ordereat/
 │   │   ├── models/
 │   │   │   ├── MenuItem.model.ts
 │   │   │   └── Order.model.ts
+│   │   ├── controllers/
+│   │   │   ├── menu.controller.ts
+│   │   │   └── orders.controller.ts
 │   │   ├── services/
 │   │   │   ├── menu.service.ts
 │   │   │   └── orders.service.ts
@@ -155,6 +163,10 @@ Server reads `ALLOWED_ORIGINS` (comma-separated) from env. In prod it's the Verc
 
 To prevent duplicate orders caused by user action (double-clicks) or infrastructure retries (network drops, proxy timeout retries), the checkout form generates a unique random UUID on mount (`idempotencyKey`) and sends it via the `x-idempotency-key` header on the POST request. 
 The server stores and indexes this key on the order document in MongoDB. Before creating any new order, the server checks if the key has already been processed. If so, it returns the existing order directly, providing zero-downtime retry safety.
+
+### 4.11 Controller layer separation
+
+To adhere to enterprise architecture standards, we separated the HTTP parsing/serialization layer from the routing layer. Routers in `routes/` now only define endpoint paths and hook up middlewares. Handlers in `controllers/` extract `req.body`, `req.params`, `req.headers`, handle client-facing Zod and database errors, and map the outputs to HTTP status codes (200, 201, 204, 400, 404, 500), keeping route declarations clean and services purely focused on business logic.
 
 ## 5. Security
 

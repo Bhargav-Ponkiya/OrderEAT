@@ -35,7 +35,7 @@ This document outlines our commitment to **Test-Driven Development** (TDD) and h
 - `setOrderStatus` updates manually (FR-STATUS-5) and returns `null` for malformed/unknown IDs.
 - `deleteOrder` removes a persisted order and returns `false` for missing or malformed IDs (FR-DELETE-1, FR-DELETE-2).
 
-### 3.3 API routes (`server/src/routes/*.spec.ts`)
+### 3.3 API routes & controllers (`server/src/routes/*.spec.ts`)
 - `GET /api/menu` — 200 + items (FR-MENU-1).
 - `POST /api/orders`:
   - 201 + order body on valid payload (FR-ORDER-1, FR-ORDER-3).
