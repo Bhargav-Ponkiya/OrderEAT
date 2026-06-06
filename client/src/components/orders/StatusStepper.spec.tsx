@@ -23,11 +23,15 @@ describe("StatusStepper", () => {
     );
   });
 
-  it("treats DELIVERED as the final current step", () => {
+  it("treats DELIVERED as the final completed step where all steps are done", () => {
     render(<StatusStepper current="DELIVERED" />);
     expect(screen.getByTestId("step-DELIVERED")).toHaveAttribute(
       "data-state",
-      "current",
+      "done",
+    );
+    expect(screen.getByTestId("step-OUT_FOR_DELIVERY")).toHaveAttribute(
+      "data-state",
+      "done",
     );
   });
 });
