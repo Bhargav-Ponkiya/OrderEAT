@@ -4,8 +4,8 @@
 
 > A modern food ordering and real-time status tracking application. Browse menu → add to cart → checkout → track order lifecycle.
 
-- **Live demo:** <!-- TODO: Vercel URL -->
-- **API:** <!-- TODO: Render URL/api/health -->
+- **Live demo:** https://order-eat-bhargavp.vercel.app
+- **API:** https://ordereat-api.onrender.com
 
 ---
 
